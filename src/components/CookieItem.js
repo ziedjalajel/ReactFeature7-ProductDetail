@@ -1,22 +1,23 @@
 import React from "react";
 
 // Styling
-import { CookieWrapper } from "../styles";
+import { CookieWrapper, DeleteButton } from "../styles";
 
 const CookieItem = props => {
   const cookie = props.cookie;
 
   return (
     <CookieWrapper>
-      <img alt={cookie.name} src={cookie.image} />
+      <img
+        alt={cookie.name}
+        src={cookie.image}
+        onClick={() => props.selectCookie(cookie.id)}
+      />
       <p>{cookie.name}</p>
       <p className="cookie-price">{cookie.price} KD</p>
-      <p
-        className="cookie-delete"
-        onClick={() => props.deleteCookie(cookie.id)}
-      >
+      <DeleteButton onClick={() => props.deleteCookie(cookie.id)}>
         Delete
-      </p>
+      </DeleteButton>
     </CookieWrapper>
   );
 };

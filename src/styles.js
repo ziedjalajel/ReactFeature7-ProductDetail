@@ -21,8 +21,32 @@ const CookieWrapper = styled.div`
   }
 `;
 
+const DeleteButton = styled.p`
+  color: ${props => props.theme.red};
+
+  &.detail {
+    vertical-align: middle;
+  }
+`;
+
 const Description = styled.h4`
   text-align: center;
+`;
+
+const DetailWrapper = styled.div`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+
+  img {
+    width: 40%;
+    float: left;
+  }
+
+  p {
+    vertical-align: middle;
+  }
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -60,7 +84,9 @@ const ShopImage = styled.img`
 
 export {
   CookieWrapper,
+  DeleteButton,
   Description,
+  DetailWrapper,
   GlobalStyle,
   ListWrapper,
   Title,
