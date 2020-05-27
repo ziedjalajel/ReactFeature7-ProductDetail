@@ -170,9 +170,18 @@ const selectCookie = cookieId => {
 const [cookie, setCookie] = useState(cookies[0]);
 ```
 
+7. Let's fix `selectCookie` method to change the value of `cookie`:
+
+```javascript
+const selectCookie = cookieId => {
+  const selectedCookie = cookies.find(cookie => cookie.id === cookieId);
+  setCookie(selectedCookie);
+};
+```
+
 It's working!
 
-7. But does it make sense to render both `CookieList` and `CookieDetail` at the same time? No! Let's add a conditional operator, but what will our condition be? We can set `cookie`'s default value to `null, and when selecting a cookie it will have a value. And that can be our condition:
+8. But does it make sense to render both `CookieList` and `CookieDetail` at the same time? No! Let's add a conditional operator, but what will our condition be? We can set `cookie`'s default value to `null, and when selecting a cookie it will have a value. And that can be our condition:
 
 ```jsx
 {
@@ -188,7 +197,7 @@ It's working!
 }
 ```
 
-8. But our JSX in `App` is already huge, so let's move our condition to its own function:
+9. But our JSX in `App` is already huge, so let's move our condition to its own function:
 
 ```javascript
 const setView = () => {
@@ -204,7 +213,7 @@ const setView = () => {
 };
 ```
 
-9. Render it in the components' place:
+10. Render it in the components' place:
 
 ```jsx
   </>
@@ -212,7 +221,7 @@ const setView = () => {
 </ThemeProvider>
 ```
 
-10. Don't forget to set `cookie`'s initial value to `null`:
+11. Don't forget to set `cookie`'s initial value to `null`:
 
 ```javascript
 const [cookie, setCookie] = useState(null);
@@ -300,4 +309,16 @@ const setView = () => {
 <DeleteButton onClick={() => props.deleteCookie(cookie.id)}>
   Delete
 </DeleteButton>
+```
+
+7. Let's try it out. Nothing happened. But if you check `cookies` in React Dev Tools, you'll see that the cookie is being deleted. But the problem is that `cookie` has the cookie saved inside it, that's why we're not returned to the list page.
+
+8. To do that, we will set `cookie` to `null` in `deleteCookie`:
+
+```javascript
+const deleteCookie = cookieId => {
+  const updatedCookies = _cookies.filter(cookie => cookie.id !== +cookieId);
+  setCookies(updatedCookies);
+  setCookie(null);
+};
 ```
