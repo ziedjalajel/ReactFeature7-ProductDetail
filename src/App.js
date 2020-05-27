@@ -10,43 +10,42 @@ import {
   GlobalStyle,
   ShopImage,
   ThemeButton,
-  Title
+  Title,
 } from "./styles";
 
-const lightTheme = {
-  mainColor: "#242424", // main font color
-  backgroundColor: "#fefafb", // main background color
-  pink: "#ff85a2",
-  red: "#ff3232"
-};
-
-const darkTheme = {
-  mainColor: "#fefafb", // main font color
-  backgroundColor: "#242424", // main background color
-  pink: "#ff85a2",
-  red: "#ff3232"
+const theme = {
+  light: {
+    mainColor: "#242424", // main font color
+    backgroundColor: "#fefafb", // main background color
+    pink: "#ff85a2",
+    red: "#ff3232",
+  },
+  dark: {
+    mainColor: "#fefafb", // main font color
+    backgroundColor: "#242424", // main background color
+    pink: "#ff85a2",
+    red: "#ff3232",
+  },
 };
 
 function App() {
-  const [theme, setTheme] = useState("light");
+  const [currentTheme, setCurrentTheme] = useState("light");
 
-  const toggleTheme = () => {
-    if (theme === "light") setTheme("dark");
-    else setTheme("light");
-  };
+  const toggleTheme = () =>
+    setCurrentTheme(currentTheme === "light" ? "dark" : "light");
 
   return (
-    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+    <ThemeProvider theme={theme[currentTheme]}>
       <GlobalStyle />
-      <ThemeButton onClick={toggleTheme}>Dark Mode</ThemeButton>
-      <>
-        <Title>Cookies and Beyond</Title>
-        <Description>Where cookie maniacs gather</Description>
-        <ShopImage
-          alt="cookie shop"
-          src="https://i.pinimg.com/originals/8f/cf/71/8fcf719bce331fe39d7e31ebf07349f3.jpg"
-        />
-      </>
+      <ThemeButton onClick={toggleTheme}>
+        {currentTheme === "light" ? "Dark" : "Light"} Mode
+      </ThemeButton>
+      <Title>Cookies and Beyond</Title>
+      <Description>Where cookie maniacs gather</Description>
+      <ShopImage
+        alt="cookie shop"
+        src="https://i.pinimg.com/originals/8f/cf/71/8fcf719bce331fe39d7e31ebf07349f3.jpg"
+      />
       <CookieList />
     </ThemeProvider>
   );
