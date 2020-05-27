@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
 
 // Components
+import CookieDetail from "./components/CookieDetail";
 import CookieList from "./components/CookieList";
+
+// Data
+import cookies from "./cookies";
 
 // Styling
 import {
@@ -30,6 +34,19 @@ const theme = {
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState("light");
+  const [cookie, setCookie] = useState(null);
+  const [_cookies, setCookies] = useState(cookies);
+
+  const deleteCookie = (cookieId) => {
+    const updatedCookies = _cookies.filter((cookie) => cookie.id !== +cookieId);
+    setCookies(updatedCookies);
+    setCookie(null);
+  };
+
+  const selectCookie = (cookieId) => {
+    const selectedCookie = cookies.find((cookie) => cookie.id === cookieId);
+    setCookie(selectedCookie);
+  };
 
   const toggleTheme = () =>
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");

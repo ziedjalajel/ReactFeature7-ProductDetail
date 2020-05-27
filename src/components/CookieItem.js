@@ -8,7 +8,11 @@ const CookieItem = (props) => {
 
   return (
     <CookieWrapper>
-      <img alt={cookie.name} src={cookie.image} />
+      <img
+        alt={cookie.name}
+        src={cookie.image}
+        onClick={() => props.selectCookie(cookie.id)}
+      />
       <p>{cookie.name}</p>
       <p className="cookie-price">{cookie.price} KD</p>
     </CookieWrapper>

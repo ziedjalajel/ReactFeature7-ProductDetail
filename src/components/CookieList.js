@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
 // Components
 import CookieItem from "./CookieItem";
 import SearchBar from "./SearchBar";
-
-// Data
-import cookies from "../cookies";
 
 // Styling
 import { ListWrapper } from "../styles";
@@ -16,7 +13,9 @@ const CookieList = (props) => {
 
   const cookieList = _cookies
     .filter((cookie) => cookie.name.includes(query))
-    .map((cookie) => <CookieItem cookie={cookie} key={cookie.id} />);
+    .map((cookie) => (
+      <CookieItem cookie={cookie} setCookie={props.setCookie} key={cookie.id} />
+    ));
 
   return (
     <>

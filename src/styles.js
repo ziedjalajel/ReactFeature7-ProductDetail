@@ -21,6 +21,22 @@ export const Description = styled.h4`
   text-align: center;
 `;
 
+export const DetailWrapper = styled.div`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+
+  img {
+    width: 40%;
+    float: left;
+  }
+
+  p {
+    vertical-align: middle;
+  }
+`;
+
 export const GlobalStyle = createGlobalStyle`
   body {
     color: ${(props) => props.theme.mainColor};
