@@ -70,14 +70,12 @@ function App() {
       <ThemeButton onClick={toggleTheme}>
         {currentTheme === "light" ? "Dark" : "Light"} Mode
       </ThemeButton>
-      <>
-        <Title>Cookies and Beyond</Title>
-        <Description>Where cookie maniacs gather</Description>
-        <ShopImage
-          alt="cookie shop"
-          src="https://i.pinimg.com/originals/8f/cf/71/8fcf719bce331fe39d7e31ebf07349f3.jpg"
-        />
-      </>
+      <Title>Cookies and Beyond</Title>
+      <Description>Where cookie maniacs gather</Description>
+      <ShopImage
+        alt="cookie shop"
+        src="https://i.pinimg.com/originals/8f/cf/71/8fcf719bce331fe39d7e31ebf07349f3.jpg"
+      />
       {setView()}
     </ThemeProvider>
   );
