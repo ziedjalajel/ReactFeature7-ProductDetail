@@ -34,19 +34,34 @@ function App() {
   const toggleTheme = () =>
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");
 
+  const setView = () => {
+    if (cookie)
+      return <CookieDetail cookie={cookie} deleteCookie={deleteCookie} />;
+
+    return (
+      <CookieList
+        cookies={_cookies}
+        selectCookie={selectCookie}
+        deleteCookie={deleteCookie}
+      />
+    );
+  };
+
   return (
     <ThemeProvider theme={theme[currentTheme]}>
       <GlobalStyle />
       <ThemeButton onClick={toggleTheme}>
         {currentTheme === "light" ? "Dark" : "Light"} Mode
       </ThemeButton>
-      <Title>Cookies and Beyond</Title>
-      <Description>Where cookie maniacs gather</Description>
-      <ShopImage
-        alt="cookie shop"
-        src="https://i.pinimg.com/originals/8f/cf/71/8fcf719bce331fe39d7e31ebf07349f3.jpg"
-      />
-      <CookieList />
+      <>
+        <Title>Cookies and Beyond</Title>
+        <Description>Where cookie maniacs gather</Description>
+        <ShopImage
+          alt="cookie shop"
+          src="https://i.pinimg.com/originals/8f/cf/71/8fcf719bce331fe39d7e31ebf07349f3.jpg"
+        />
+      </>
+      {setView()}
     </ThemeProvider>
   );
 }
