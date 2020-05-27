@@ -23,10 +23,6 @@ const CookieWrapper = styled.div`
 
 const DeleteButton = styled.p`
   color: ${props => props.theme.red};
-
-  &.detail {
-    vertical-align: middle;
-  }
 `;
 
 const Description = styled.h4`
