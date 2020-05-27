@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Components
 import CookieItem from "./CookieItem";
+
+// Data
+import cookies from "../cookies";
 
 // Styling
 import { ListWrapper } from "../styles";
 
 const CookieList = props => {
-  const cookieList = props.cookies.map(cookie => (
-    <CookieItem
-      cookie={cookie}
-      key={cookie.id}
-      deleteCookie={props.deleteCookie}
-      selectCookie={props.selectCookie}
-    />
+  const [_cookies, setCookies] = useState(cookies);
+
+  const deleteCookie = cookieId => {
+    const updatedCookies = _cookies.filter(cookie => cookie.id !== +cookieId);
+    setCookies(updatedCookies);
+  };
+
+  const cookieList = _cookies.map(cookie => (
+    <CookieItem cookie={cookie} key={cookie.id} deleteCookie={deleteCookie} />
   ));
 
   return <ListWrapper>{cookieList}</ListWrapper>;

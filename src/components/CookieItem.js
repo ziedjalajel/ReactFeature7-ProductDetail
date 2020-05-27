@@ -8,11 +8,7 @@ const CookieItem = props => {
 
   return (
     <CookieWrapper>
-      <img
-        alt={cookie.name}
-        src={cookie.image}
-        onClick={() => props.selectCookie(cookie.id)}
-      />
+      <img alt={cookie.name} src={cookie.image} />
       <p>{cookie.name}</p>
       <p className="cookie-price">{cookie.price} KD</p>
       <DeleteButton onClick={() => props.deleteCookie(cookie.id)}>

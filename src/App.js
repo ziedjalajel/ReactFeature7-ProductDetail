@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
 
 // Components
-import CookieDetail from "./components/CookieDetail";
 import CookieList from "./components/CookieList";
-
-// Data
-import cookies from "./cookies";
 
 // Styling
 import {
@@ -33,19 +29,6 @@ const darkTheme = {
 
 function App() {
   const [theme, setTheme] = useState("light");
-  const [cookie, setCookie] = useState(null);
-  const [_cookies, setCookies] = useState(cookies);
-
-  const deleteCookie = cookieId => {
-    const updatedCookies = _cookies.filter(cookie => cookie.id !== +cookieId);
-    setCookies(updatedCookies);
-    setCookie(null);
-  };
-
-  const selectCookie = cookieId => {
-    const selectedCookie = cookies.find(cookie => cookie.id === cookieId);
-    setCookie(selectedCookie);
-  };
 
   const toggleTheme = () => {
     if (theme === "light") setTheme("dark");
@@ -64,15 +47,7 @@ function App() {
           src="https://i.pinimg.com/originals/8f/cf/71/8fcf719bce331fe39d7e31ebf07349f3.jpg"
         />
       </>
-      {cookie ? (
-        <CookieDetail cookie={cookie} deleteCookie={deleteCookie} />
-      ) : (
-        <CookieList
-          cookies={_cookies}
-          selectCookie={selectCookie}
-          deleteCookie={deleteCookie}
-        />
-      )}
+      <CookieList />
     </ThemeProvider>
   );
 }
