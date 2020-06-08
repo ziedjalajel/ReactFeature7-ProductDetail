@@ -62,7 +62,7 @@ function App(){
 5. In `CookieDetail`, let's render our fields:
 
 ```javascript
-const CookieDetail = props => {
+const CookieDetail = (props) => {
   const cookie = props.cookie;
   return (
     <div>
@@ -101,7 +101,7 @@ const DetailWrapper = styled.div`
 // Styling
 import { DetailWrapper } from "../styles";
 
-const CookieDetail = props => {
+const CookieDetail = (props) => {
   const cookie = props.cookie;
   return (
     <DetailWrapper>
@@ -130,8 +130,8 @@ const CookieDetail = props => {
 2. Let's create our `selectCookie` method, it takes the cookie ID as an argument and `find`s the cookie with this ID.
 
 ```javascript
-const selectCookie = cookieId => {
-  const selectedCookie = cookies.find(cookie => cookie.id === cookieId);
+const selectCookie = (cookieId) => {
+  const selectedCookie = cookies.find((cookie) => cookie.id === cookieId);
   console.log("App -> selectedCookie", selectedCookie);
 };
 ```
@@ -173,8 +173,8 @@ const [cookie, setCookie] = useState(cookies[0]);
 7. Let's fix `selectCookie` method to change the value of `cookie`:
 
 ```javascript
-const selectCookie = cookieId => {
-  const selectedCookie = cookies.find(cookie => cookie.id === cookieId);
+const selectCookie = (cookieId) => {
+  const selectedCookie = cookies.find((cookie) => cookie.id === cookieId);
   setCookie(selectedCookie);
 };
 ```
@@ -231,15 +231,15 @@ const [cookie, setCookie] = useState(null);
 
 We forgot to add the delete button to our detail page!
 
-1. In `CookieDetail` import `DeleteButton` from `styles` and render it.
+1. In `CookieDetail` import `DeleteButtonStyled` from `styles` and render it.
 
 ```javascript
 // Styling
-import { DeleteButton, DetailWrapper } from "../styles";
+import { DeleteButtonStyled, DetailWrapper } from "../styles";
 ```
 
 ```jsx
-<DeleteButton>Delete</DeleteButton>
+<DeleteButtonStyled>Delete</DeleteButtonStyled>
 ```
 
 Now, we need to pass the `deleteCookie` method as a prop. But we a problem. `deleteCookie` is in `CookieList`, and `CookieList` is in no way connected to `CookieDetail`. So for them to share the same method, we need to place it in `App.js` and pass it as a prop to **both** `CookieList` and `CookieDetail`. We will also need to pass the `_cookies` as a prop from `App`.
@@ -270,8 +270,8 @@ function App() {
 3. In `CookieList`:
 
 ```javascript
-const CookieList = props => {
-  const cookieList = props.cookies.map(cookie => (
+const CookieList = (props) => {
+  const cookieList = props.cookies.map((cookie) => (
     <CookieItem
       cookie={cookie}
       key={cookie.id}
@@ -303,12 +303,10 @@ const setView = () => {
 };
 ```
 
-6. In `CookieDetail`:
+6. In `CookieDetail`. Also copy the `handleDelete` method from `CookieItem`:
 
 ```jsx
-<DeleteButton onClick={() => props.deleteCookie(cookie.id)}>
-  Delete
-</DeleteButton>
+<DeleteButtonStyled onClick={handleDelete}>Delete</DeleteButtonStyled>
 ```
 
 7. Let's try it out. Nothing happened. But if you check `cookies` in React Dev Tools, you'll see that the cookie is being deleted. But the problem is that `cookie` has the cookie saved inside it, that's why we're not returned to the list page.
@@ -316,8 +314,8 @@ const setView = () => {
 8. To do that, we will set `cookie` to `null` in `deleteCookie`:
 
 ```javascript
-const deleteCookie = cookieId => {
-  const updatedCookies = _cookies.filter(cookie => cookie.id !== +cookieId);
+const deleteCookie = (cookieId) => {
+  const updatedCookies = _cookies.filter((cookie) => cookie.id !== +cookieId);
   setCookies(updatedCookies);
   setCookie(null);
 };
