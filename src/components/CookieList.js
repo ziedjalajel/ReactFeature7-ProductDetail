@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 // Components
 import CookieItem from "./CookieItem";
+import SearchBar from "./SearchBar";
 
 // Data
 import cookies from "../cookies";
@@ -9,7 +10,7 @@ import cookies from "../cookies";
 // Styling
 import { ListWrapper } from "../styles";
 
-const CookieList = () => {
+const CookieList = (props) => {
   const [query, setQuery] = useState("");
   const [_cookies, setCookies] = useState(cookies);
 
