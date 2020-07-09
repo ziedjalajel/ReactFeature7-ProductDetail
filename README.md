@@ -116,7 +116,7 @@ const CookieDetail = (props) => {
 
 ## Step 2: Selecting a Cookie
 
-1. What we need to do is change the rendered `cookie` in `CookieDetail` according to the cookie we click on. So we need to add an event handler in `CookieItem` that fetches the cookie ID when we click on the cookie's image. For now let's add an `alert`.
+1. What we need to do is change the rendered `cookie` in `CookieDetail` according to the cookie we click on. So we need to add an event handler in `CookieItem` that fetches the cookie when we click on the cookie's image. For now let's add an `alert`.
 
 ```jsx
 <CookieWrapper>
@@ -127,93 +127,59 @@ const CookieDetail = (props) => {
   />
 ```
 
-2. Let's create our `selectCookie` method, it takes the cookie ID as an argument and `find`s the cookie with this ID.
+2. But now the selected cookie must be saved in a state so that we can see the change. What did we agree on using if we want to change things on our screen? Yes! State! So we will create a state called `cookie`, and we'll give it an initial state of `cookies[0]`.
 
 ```javascript
-const selectCookie = (cookieId) => {
-  const selectedCookie = cookies.find((cookie) => cookie.id === cookieId);
-  console.log("App -> selectedCookie", selectedCookie);
-};
+const [cookie, setCookie] = useState(cookies[0]);
 ```
 
-3. To use this method in `CookieItem`, we need to pass it down two levels: first from `App` to `CookieList`.
+3. To use `setCookie` in `CookieItem`, we need to pass it down two levels: first from `App` to `CookieList`.
 
 ```jsx
-<CookieList deleteCookie={deleteCookie} selectCookie={selectCookie} />
+<CookieList setCookie={setCookie} />
 ```
 
 4. Now we will pass it from `CookieList` to `CookieItem`.
 
 ```jsx
-<CookieItem
-  cookie={cookie}
-  key={cookie.id}
-  deleteCookie={props.deleteCookie}
-  selectCookie={props.selectCookie}
-/>
+<CookieItem cookie={cookie} key={cookie.id} setCookie={props.setCookie} />
 ```
 
-5. Replace the `alert` with our method:
+5. Replace the `alert` with our method and pass it the whole `cookie` object
 
 ```jsx
 <CookieWrapper>
   <img
     alt={cookie.name}
     src={cookie.image}
-    onClick={() => props.selectCookie(cookie.id)}
+    onClick={() => props.selectCookie(cookie)}
   />
 ```
 
-6. Let's test it out and check our console. Yay! It's working. But now `selectedCookie` must be saved in `cookie` so that we can see the change. What did we agree on using if we want to change things on our screen? Yes! State! So we will turn `cookie` to a state, and we'll give it an initial state of `cookies[0]`.
+6. Let's test it out. Yay! It's working.
 
-```javascript
-const [cookie, setCookie] = useState(cookies[0]);
-```
-
-7. Let's fix `selectCookie` method to change the value of `cookie`:
-
-```javascript
-const selectCookie = (cookieId) => {
-  const selectedCookie = cookies.find((cookie) => cookie.id === cookieId);
-  setCookie(selectedCookie);
-};
-```
-
-It's working!
-
-8. But does it make sense to render both `CookieList` and `CookieDetail` at the same time? No! Let's add a conditional operator, but what will our condition be? We can set `cookie`'s default value to `null, and when selecting a cookie it will have a value. And that can be our condition:
+7. But does it make sense to render both `CookieList` and `CookieDetail` at the same time? No! Let's add a conditional operator, but what will our condition be? We can set `cookie`'s default value to `null, and when selecting a cookie it will have a value. And that can be our condition:
 
 ```jsx
 {
   cookie ? (
-    <CookieDetail cookie={cookie} deleteCookie={deleteCookie} />
+    <CookieDetail cookie={cookie} />
   ) : (
-    <CookieList
-      cookies={_cookies}
-      selectCookie={selectCookie}
-      deleteCookie={deleteCookie}
-    />
+    <CookieList selectCookie={selectCookie} />
   );
 }
 ```
 
-9. But our JSX in `App` is already huge, so let's move our condition to its own function:
+8. But our JSX in `App` is already huge, so let's move our condition to its own function:
 
 ```javascript
 const setView = () => {
-  if (cookie)
-    return <CookieDetail cookie={cookie} deleteCookie={deleteCookie} />;
-  return (
-    <CookieList
-      cookies={_cookies}
-      selectCookie={selectCookie}
-      deleteCookie={deleteCookie}
-    />
-  );
+  if (cookie) return <CookieDetail cookie={cookie} />;
+  return <CookieList selectCookie={selectCookie} />;
 };
 ```
 
-10. Render it in the components' place:
+9. Render it in the components' place:
 
 ```jsx
   </>
@@ -221,102 +187,10 @@ const setView = () => {
 </ThemeProvider>
 ```
 
-11. Don't forget to set `cookie`'s initial value to `null`:
+10. Don't forget to set `cookie`'s initial value to `null`:
 
 ```javascript
 const [cookie, setCookie] = useState(null);
 ```
 
-## Step 3: Fix the Delete
-
-We forgot to add the delete button to our detail page!
-
-1. In `CookieDetail` import `DeleteButtonStyled` from `styles` and render it.
-
-```javascript
-// Styling
-import { DeleteButtonStyled, DetailWrapper } from "../styles";
-```
-
-```jsx
-<DeleteButtonStyled>Delete</DeleteButtonStyled>
-```
-
-Now, we need to pass the `deleteCookie` method as a prop. But we a problem. `deleteCookie` is in `CookieList`, and `CookieList` is in no way connected to `CookieDetail`. So for them to share the same method, we need to place it in `App.js` and pass it as a prop to **both** `CookieList` and `CookieDetail`. We will also need to pass the `_cookies` as a prop from `App`.
-
-2. Move `_cookies` and `deleteCookies` from `CookieList` to `App` and pass it as a prop.
-
-```javascript
-function App() {
-  const [theme, setTheme] = useState("light");
-  const [cookie, setCookie] = useState(null);
-  const [_cookies, setCookies] = useState(cookies);
-
-  const deleteCookie = cookieId => {
-    const updatedCookies = _cookies.filter(cookie => cookie.id !== +cookieId);
-    setCookies(updatedCookies);
-    setCookie(null);
-  };
-```
-
-```jsx
-<CookieList
-  cookies={_cookies}
-  selectCookie={selectCookie}
-  deleteCookie={deleteCookie}
-/>
-```
-
-3. In `CookieList`:
-
-```javascript
-const CookieList = (props) => {
-  const cookieList = props.cookies.map((cookie) => (
-    <CookieItem
-      cookie={cookie}
-      key={cookie.id}
-      deleteCookie={props.deleteCookie}
-      selectCookie={props.selectCookie}
-    />
-  ));
-
-  return <ListWrapper>{cookieList}</ListWrapper>;
-};
-```
-
-4. Test the delete from the list of cookies, it should work properly.
-
-5. Now pass `deleteCookie` as a prop to `CookieDetail`:
-
-```javascript
-const setView = () => {
-  if (cookie)
-    return <CookieDetail cookie={cookie} deleteCookie={deleteCookie} />;
-
-  return (
-    <CookieList
-      cookies={_cookies}
-      selectCookie={selectCookie}
-      deleteCookie={deleteCookie}
-    />
-  );
-};
-```
-
-6. In `CookieDetail`. Also copy the `handleDelete` method from `CookieItem`:
-
-```jsx
-<DeleteButtonStyled onClick={handleDelete}>Delete</DeleteButtonStyled>
-```
-
-7. Let's try it out. Nothing happened. But if you check `cookies` in React Dev Tools, you'll see that the cookie is being deleted. But the problem is that `cookie` has the cookie saved inside it, that's why we're not returned to the list page.
-
-8. To do that, we will set `cookie` to `null` in `deleteCookie`:
-
-```javascript
-const deleteCookie = (cookieId) => {
-  const updatedCookies = _cookies.filter((cookie) => cookie.id !== +cookieId);
-  setCookies(updatedCookies);
-  setCookie(null);
-};
-```
+And now either `CookieList` or `CookieDetail` will be rendered.
