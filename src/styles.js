@@ -17,10 +17,6 @@ export const CookieWrapper = styled.div`
   }
 `;
 
-export const DeleteButtonStyled = styled.p`
-  color: ${(props) => props.theme.red};
-`;
-
 export const Description = styled.h4`
   text-align: center;
 `;
@@ -49,6 +45,13 @@ export const ThemeButton = styled.button`
 
 export const Title = styled.h1`
   text-align: center;
+`;
+
+export const SearchBarStyled = styled.input`
+  padding: 0.5rem;
+  margin: 1rem auto;
+  display: block;
+  width: 40%;
 `;
 
 export const ShopImage = styled.img`
