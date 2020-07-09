@@ -11,7 +11,7 @@ const CookieItem = (props) => {
       <img
         alt={cookie.name}
         src={cookie.image}
-        onClick={() => props.selectCookie(cookie.id)}
+        onClick={() => props.setCookie(cookie)}
       />
       <p>{cookie.name}</p>
       <p className="cookie-price">{cookie.price} KD</p>

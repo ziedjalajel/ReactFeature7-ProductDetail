@@ -35,33 +35,13 @@ const theme = {
 function App() {
   const [currentTheme, setCurrentTheme] = useState("light");
   const [cookie, setCookie] = useState(null);
-  const [_cookies, setCookies] = useState(cookies);
-
-  const deleteCookie = (cookieId) => {
-    const updatedCookies = _cookies.filter((cookie) => cookie.id !== +cookieId);
-    setCookies(updatedCookies);
-    setCookie(null);
-  };
-
-  const selectCookie = (cookieId) => {
-    const selectedCookie = cookies.find((cookie) => cookie.id === cookieId);
-    setCookie(selectedCookie);
-  };
 
   const toggleTheme = () =>
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");
 
   const setView = () => {
-    if (cookie)
-      return <CookieDetail cookie={cookie} deleteCookie={deleteCookie} />;
-
-    return (
-      <CookieList
-        cookies={_cookies}
-        selectCookie={selectCookie}
-        deleteCookie={deleteCookie}
-      />
-    );
+    if (cookie) return <CookieDetail cookie={cookie} />;
+    return <CookieList setCookie={setCookie} />;
   };
 
   return (
