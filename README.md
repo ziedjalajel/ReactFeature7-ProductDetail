@@ -8,6 +8,25 @@
 
 In today's class we will add a cookie detail page using the concepts that we already know.
 
+## Step 0: Previous Challenge
+
+Our search bar is case sensitive. Let's fix that
+
+1. By using `toLowerCase` or `toUpperCase` on both `cookie.name` and `query`. This guarantees that there is no issue with the case:
+
+```javascript
+const cookieList = _cookies
+  .filter((cookie) => cookie.name.toLowerCase().includes(query.toLowerCase()))
+  .map((cookie) => (
+    <CookieItem
+      cookie={cookie}
+      key={cookie.id}
+      deleteCookie={props.deleteCookie}
+      setCookie={props.setCookie}
+    />
+  ));
+```
+
 ## Step 1: Detail Component
 
 1. Create a new file for our component called `CookieDetail.js` and set up the component.
