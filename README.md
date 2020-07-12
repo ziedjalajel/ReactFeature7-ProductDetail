@@ -152,7 +152,7 @@ const [cookie, setCookie] = useState(cookies[0]);
   <img
     alt={cookie.name}
     src={cookie.image}
-    onClick={() => props.selectCookie(cookie)}
+    onClick={() => props.setCookie(cookie)}
   />
 ```
 
@@ -165,7 +165,7 @@ const [cookie, setCookie] = useState(cookies[0]);
   cookie ? (
     <CookieDetail cookie={cookie} />
   ) : (
-    <CookieList selectCookie={selectCookie} />
+    <CookieList setCookie={setCookie} />
   );
 }
 ```
@@ -175,7 +175,7 @@ const [cookie, setCookie] = useState(cookies[0]);
 ```javascript
 const setView = () => {
   if (cookie) return <CookieDetail cookie={cookie} />;
-  return <CookieList selectCookie={selectCookie} />;
+  return <CookieList setCookie={setCookie} />;
 };
 ```
 
