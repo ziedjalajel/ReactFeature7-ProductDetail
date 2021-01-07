@@ -1,24 +1,23 @@
 import styled, { createGlobalStyle } from "styled-components";
 
-export const CookieWrapper = styled.div`
-  margin: 20px;
+export const Description = styled.h4`
+  text-align: center;
+`;
+
+export const DetailWrapper = styled.div`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
 
   img {
-    width: 200px;
-    height: 200px;
+    width: 40%;
+    float: left;
   }
 
   p {
-    text-align: center;
-
-    &.cookie-price {
-      color: ${(props) => props.theme.pink};
-    }
+    vertical-align: middle;
   }
-`;
-
-export const Description = styled.h4`
-  text-align: center;
 `;
 
 export const GlobalStyle = createGlobalStyle`
@@ -34,17 +33,21 @@ export const ListWrapper = styled.div`
   display: flex;
 `;
 
-export const ThemeButton = styled.button`
-  font-size: 1em;
-  margin: 1.25em;
-  padding: 0.25em 1em;
-  border-radius: 3px;
-  background-color: ${(props) => props.theme.mainColor};
-  color: ${(props) => props.theme.backgroundColor};
-`;
+export const ProductWrapper = styled.div`
+  margin: 20px;
 
-export const Title = styled.h1`
-  text-align: center;
+  img {
+    width: 200px;
+    height: 200px;
+  }
+
+  p {
+    text-align: center;
+
+    &.product-price {
+      color: ${(props) => props.theme.pink};
+    }
+  }
 `;
 
 export const SearchBarStyled = styled.input`
@@ -59,4 +62,17 @@ export const ShopImage = styled.img`
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+`;
+
+export const ThemeButton = styled.button`
+  font-size: 1em;
+  margin: 1.25em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  background-color: ${(props) => props.theme.mainColor};
+  color: ${(props) => props.theme.backgroundColor};
+`;
+
+export const Title = styled.h1`
+  text-align: center;
 `;
