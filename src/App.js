@@ -27,11 +27,16 @@ const theme = {
 };
 
 function App() {
+  const [_products,setProducts]= useState(products)
   const [currentProduct,setCurrentProduct] = useState(null)
   const [currentTheme, setCurrentTheme] = useState("light");
 
   const toggleTheme = () =>
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");
+  const deleteProduct =(productID)=>{
+    let newProduct=_products.filter(product=>product.id !== productID)
+    setProducts(newProduct)
+  }    
 
   return (
     <ThemeProvider theme={theme[currentTheme]}>
@@ -40,9 +45,14 @@ function App() {
         {currentTheme === "light" ? "Dark" : "Light"} Mode
       </ThemeButton>
       <Home />
-      {currentProduct ? ( <ProductDetail product = {currentProduct} setCurrentProduct={setCurrentProduct}/>) : ( <ProductList setCurrentProduct={setCurrentProduct}/>)}
-      
-      
+      {currentProduct ?
+      ( 
+      <ProductDetail product = {currentProduct} setCurrentProduct={setCurrentProduct}/>
+      )
+      :
+      ( 
+      <ProductList setCurrentProduct={setCurrentProduct} products={_products} deleteProduct={deleteProduct}/>
+      )}
       <products product={currentProduct}/>
     </ThemeProvider>
   );

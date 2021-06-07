@@ -4,18 +4,21 @@ import { ListWrapper } from "../styles";
 import ProductItem from "./ProductItem";
 import SearchBar from "./SearchBar";
 // Data
-import products from "../products";
+
 import { useState } from "react";
 
 const ProductList = (props) => {
   const [query, setQuery] = useState("");
 
-  const productList = products
+  let productList = props.products
     .filter((product) => product.name.includes(query))
-    .map((product) => <ProductItem 
+    .map((product) => 
+    <ProductItem 
     product={product} 
     key={product.id} 
-    setCurrentProduct={props.setCurrentProduct} />);
+    setCurrentProduct={props.setCurrentProduct} 
+    deleteProduct={props.deleteProduct}
+    />);
 
   return (
     <>
