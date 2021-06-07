@@ -1,12 +1,15 @@
+
 import { DetailWrapper } from "../styles";
 
-const ProductDetail = () => {
+
+const ProductDetail = ({product,setCurrentProduct}) => {
   return (
     <DetailWrapper>
-      <h1>I should be a product name</h1>
-      <img src="I should be a product image" alt="I should be a product name" />
-      <p>I should be a product description</p>
-      <p>I should be a product price</p>
+    <img alt={product.name} src={product.image} />
+      <p>{product.name}</p>
+      <p>{product.description}</p>
+      <p className="product-price">{product.price} KD</p>
+      <button onClick={()=> setCurrentProduct(null)} >Go Back</button>
     </DetailWrapper>
   );
 };
